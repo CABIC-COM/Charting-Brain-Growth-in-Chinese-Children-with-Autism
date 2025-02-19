@@ -11,7 +11,7 @@ library(tidyverse)
 library(reticulate)
 
 ## 310-script
-IndexName = "GMV" ########################################
+IndexName = "" ########################################
 GROUP <- "ASD" #####################
 MAINPATH = "./DATA"
 DATAPATH = file.path(MAINPATH,"DATA.rds")
