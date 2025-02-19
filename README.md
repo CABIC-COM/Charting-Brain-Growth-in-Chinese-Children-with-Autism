@@ -25,6 +25,15 @@ The **Lifespan Brain Chart Consortium (LBCC)** has recently developed a comprehe
 - **3.1** Uses the models built in `CABIC_Main.R` to plot **growth trajectory curves**.  
 - **3.2** Visualizes and compares **developmental trajectories** between ASD (Autism Spectrum Disorder) and TDC (Typically Developing Children).  
 
+### **4. CABIC_milestone.R**  
+- **4.1** Tracks key milestones in the CABIC project workflow.  
+
+### **5. CABIC_Subregions_Main.R**  
+- **5.1** Similar to Step 2, developmental curves for each brain region were plotted using gray matter volume values for local brain regions  
+
+### **6. CABIC_Normalised Centiles.R**  
+- **6.1** Deviation from the standardized developmental curve compared to healthy controls was calculated for each input participant
+
 ---
 
 ## **How to Use**
@@ -53,6 +62,18 @@ The **Lifespan Brain Chart Consortium (LBCC)** has recently developed a comprehe
    ```sh
    Rscript CABIC_Drawing.R
    ```
+4. Track milestones:
+   ```sh
+   Rscript CABIC_milestone.R
+   ```
+5. Evaluate model performance:
+   ```sh
+   Rscript CABIC_Evaluation.R
+   ```
+6. Generate report:
+   ```sh
+   Rscript CABIC_Report.R
+   ```
 
 ---
 
@@ -60,4 +81,4 @@ The **Lifespan Brain Chart Consortium (LBCC)** has recently developed a comprehe
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.  
 
 ## **Contact**
-For any inquiries, please contact **Lei Li** at `your.email@example.com`.  
+For any inquiries, please contact **Lei Li** at `uestc.lilei@gmail.com`.  
