@@ -36,46 +36,6 @@ The **Lifespan Brain Chart Consortium (LBCC)** has recently developed a comprehe
 
 ---
 
-## **How to Use**
-
-### **Installation**
-1. Clone the repository:
-   ```sh
-   git clone https://github.com/yourusername/CABIC_project.git
-   cd CABIC_project
-   ```
-2. Install necessary dependencies (if applicable):
-   ```sh
-   Rscript -e 'install.packages(c("necessary_package1", "necessary_package2"))'
-   ```
-
-### **Running the Pipeline**
-1. Preprocess data:
-   ```sh
-   Rscript CABIC_data.R
-   ```
-2. Train the model:
-   ```sh
-   Rscript CABIC_Main.R
-   ```
-3. Generate plots:
-   ```sh
-   Rscript CABIC_Drawing.R
-   ```
-4. Track milestones:
-   ```sh
-   Rscript CABIC_milestone.R
-   ```
-5. Evaluate model performance:
-   ```sh
-   Rscript CABIC_Evaluation.R
-   ```
-6. Generate report:
-   ```sh
-   Rscript CABIC_Report.R
-   ```
-
----
 
 ## **License**
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.  
