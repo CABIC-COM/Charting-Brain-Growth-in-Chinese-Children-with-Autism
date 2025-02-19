@@ -12,7 +12,7 @@ source("200.variables.r")
 source("201.functions.r")
 library(ggplot2)
 library(ggsci)
-##导入预设好的模板和数据
+##Import pre-defined templates and data
 IndexName <- "TotalCorticalGMV" ########## 修改IndexName和GROUP
 GROUP <- "ASD" #####################
 DATA_PATH = './DATA'
@@ -23,73 +23,7 @@ real_data_DIM = dim(real_data)
 if (file.exists(file.path(DATA_PATH,"DATA.rds"))){
   file.remove(file.path(DATA_PATH,"DATA.rds"))
 }
-
-## 智商、疾病 分类型
-real_data |>
-  mutate(
-    intellgence_type = {
-      x <- vector()
-      x[!is.na(real_data$PPVT) & real_data$PPVT >= 100] <- "High-level"
-      x[!is.na(real_data$PPVT) & real_data$PPVT <= 100 & real_data$PPVT >= 88] <- "Medium-level"
-      x[!is.na(real_data$PPVT) &  real_data$PPVT <= 87 & real_data$PPVT >= 73] <- "LOW-level"
-      x[!is.na(real_data$PPVT) &  real_data$PPVT <= 72] <- "Extremely LOW-level"
-      x[!is.na(real_data$PPVT) & real_data$PPVT >= 100] <- "High-level"
-      x[!is.na(real_data$DQ) & real_data$DQ >= 109] <- "High-level"
-      x[!is.na(real_data$DQ) & real_data$DQ <= 79 & real_data$DQ >= 70] <- "LOW-level"
-      x[!is.na(real_data$DQ) & real_data$DQ <= 69] <- "Extremely LOW-level"
-      x[!is.na(real_data$DQ) & real_data$DQ <= 108 & real_data$DQ >= 80] <- "Medium-level"
-      x[!is.na(real_data$AQ) & real_data$AQ >= 135] <- "High-level"
-      x[!is.na(real_data$AQ) & real_data$AQ <= 94 & real_data$AQ >= 60] <- "LOW-level"
-      x[!is.na(real_data$AQ) & real_data$AQ <= 59] <- "Extremely LOW-level"
-      x[!is.na(real_data$AQ) & real_data$AQ <= 134 & real_data$AQ >= 95] <- "Medium-level"
-      x[!is.na(real_data$FIQ) & real_data$FIQ >= 110] <- "High-level"
-      x[!is.na(real_data$FIQ) & real_data$FIQ <= 89 & real_data$FIQ >= 70] <- "LOW-level"
-      x[!is.na(real_data$FIQ) & real_data$FIQ <= 69] <- "Extremely LOW-level"
-      x[!is.na(real_data$FIQ) & real_data$FIQ <= 90 & real_data$FIQ >= 109] <- "Medium-level"
-      x
-    }
-  ) -> real_data
-
-real_data |>
-  mutate(
-    autism_type = {
-      x <- vector()
-      x[!is.na(real_data$ABC_TOTAL) & real_data$ABC_TOTAL >= 67] <- "Severe autism"
-      x[!is.na(real_data$ABC_TOTAL) & real_data$ABC_TOTAL <= 66 & real_data$ABC_TOTAL >= 53] <- "Mild to moderate autism"
-      x[!is.na(real_data$ABC_TOTAL) &  real_data$ABC_TOTAL <= 52 ] <- "Non-autism"
-      x[!is.na(real_data$CARS) & real_data$CARS >= 37] <- "Severe autism"
-      x[!is.na(real_data$CARS) & real_data$CARS <= 36 & real_data$CARS >= 30] <- "Mild to moderate autism"
-      x[!is.na(real_data$CARS) &  real_data$CARS <= 29 ] <- "Non-autism"
-      x[!is.na(real_data$ADOS_SA) &real_data$ADOS ==1 & real_data$ADOS_SA >= 12] <- "Severe autism"
-      x[!is.na(real_data$ADOS_SA) &real_data$ADOS ==1 & real_data$AGE < 3 & real_data$ADOS_SA < 12 & real_data$ADOS_SA >= 7] <- "Mild to moderate autism"
-      x[!is.na(real_data$ADOS_SA) &real_data$ADOS ==1 & real_data$AGE >= 3 & real_data$ADOS_SA < 12 & real_data$ADOS_SA >= 8] <- "Mild to moderate autism"
-      x[!is.na(real_data$ADOS_SA) &real_data$ADOS ==1 & real_data$AGE < 3 & real_data$ADOS_SA < 7] <- "Non-autism"
-      x[!is.na(real_data$ADOS_SA) &real_data$ADOS ==1 & real_data$AGE >= 3 & real_data$ADOS_SA < 8] <- "Non-autism"
-      x[!is.na(real_data$ADOS_SA) &real_data$ADOS ==2 & real_data$AGE < 3 & real_data$ADOS_SA+real_data$ADOS_RRB >= 16] <- "Severe autism"
-      x[!is.na(real_data$ADOS_SA) &real_data$ADOS ==2 & real_data$AGE >= 3 & real_data$ADOS_SA+real_data$ADOS_RRB >= 9] <- "Severe autism"
-      x[!is.na(real_data$ADOS_SA) &real_data$ADOS ==2 & real_data$AGE < 3 & real_data$ADOS_SA+real_data$ADOS_RRB >= 11 & real_data$ADOS_SA+real_data$ADOS_RRB <= 15] <- "Mild to moderate autism"
-      x[!is.na(real_data$ADOS_SA) &real_data$ADOS ==2 & real_data$AGE >= 3 & real_data$ADOS_SA+real_data$ADOS_RRB >= 7 & real_data$ADOS_SA+real_data$ADOS_RRB <= 8] <- "Mild to moderate autism"
-      x[!is.na(real_data$ADOS_SA) &real_data$ADOS ==2 & real_data$AGE < 3 & real_data$ADOS_SA+real_data$ADOS_RRB <= 10] <- "Non-autism"
-      x[!is.na(real_data$ADOS_SA) &real_data$ADOS ==2 & real_data$AGE >= 3 & real_data$ADOS_SA+real_data$ADOS_RRB <= 6] <- "Non-autism"
-      x
-    }
-  ) -> real_data
-## social deficts type
-real_data |>
-  mutate(
-    social_type = {
-      x <- vector()
-      x[!is.na(real_data$SRS_TOTAL) & real_data$SRS_TOTAL >= 91] <- "Severe social deficits"
-      x[!is.na(real_data$SRS_TOTAL) & real_data$SRS_TOTAL >= 76 & real_data$SRS_TOTAL<= 90] <- "Moderate social deficits"
-      x[!is.na(real_data$SRS_TOTAL) & real_data$SRS_TOTAL >= 61 & real_data$SRS_TOTAL<= 75] <- "Mild social deficits"
-      x[!is.na(real_data$SRS_TOTAL) & real_data$SRS_TOTAL <= 60] <- "No social deficits"
-      x
-    }
-  ) -> real_data
-write.csv(real_data,"./DATA/CABIC_Subjects_info_SUBTYPE.csv", row.names = FALSE) 
-
-
-## 替换数据
+## Replacement data
 SUBSET <- mask_data |> head(n=real_data_DIM[1]) 
 SUBSET |> dplyr::select(1:6,25:27) -> SUBSET
 real_data[,"STUDY"] |> factor() -> SUBSET[,"Study"]
@@ -100,7 +34,7 @@ real_data[,"HANDEDNESS"] |> factor() -> SUBSET[,"HANDEDNESS"]
 SUBSET[,"TimeTransformed"] = real_data[,"AGE"]
 
 
-## 替换output
+## Replacement output
 Out_data_PATH <- file.path(DATA_PATH,"CABIC_Subjects_output_WholeBrain.csv")
 data_original <- read.csv(Out_data_PATH)
 ## delet null and zeros
